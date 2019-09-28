@@ -8,7 +8,7 @@ export const DefaultNumberSpecifiers = Object.freeze({
     showHexX: false,
     forceDecimalPoint: false,
     limitSize: false, // use shorter representation where possible (float vs. scientific notation)
-    zeroPad: false, // pad with zeroes instead of spaces
+    padChar: ' ', // pad with zeroes instead of spaces
     width: null, // horizontal width
     capitalize: false, // use capital hex digits, capital E for sci. notation
     precision: null,

@@ -13,3 +13,8 @@ it ('renders long long decimal to C printf ', () => {
     const chunk = makeNumberChunk(null, null, {"size": InternalSizes.longlong});
     expect(chunk.render()).toEqual(<p>%lld</p>);
 });
+
+it ('renders a 0 padded int', () => {
+    const chunk = makeNumberChunk(null, null, {"width": 10, "padChar": "0"});
+    expect(chunk.render()).toEqual(<p>%010d</p>);
+})

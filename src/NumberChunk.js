@@ -71,7 +71,20 @@ export class NumberChunk extends Chunk {
 
         let symbol = internal_size.c_printf + number_type.c_printf;
 
-        return `%${symbol}`;
+        const width = this.props.specifiers.width;
+        const padChar = this.props.specifiers.padChar;
+
+        let padClause = "";
+
+        if (width !== null) {
+            padClause = width.toString(10);
+        }
+
+        if (padChar == "0" && width !== null) {
+            padClause = "0" + padClause;
+        }
+
+        return `%${padClause}${symbol}`;
     }
 
     renderLogical() {
@@ -80,8 +93,27 @@ export class NumberChunk extends Chunk {
         return "LOGICAL";
     }
 
-    renderCppSStream() {        
-        return "blah";
+    renderCppSStream() {
+        let parts = [];
+        const width = this.props.specifiers.width;
+        const padChar = this.props.specifiers.padChar;
+
+        if (width !== null) {
+            parts.push(`std::setw(${width})`);
+        }
+
+        if (padChar !== ' ') {
+            parts.push(`std::setfill('${padChar}')`);
+        }
+
+        let result = "";
+        parts.map((part) => {
+            result += "<< " + part + " ";
+        });
+
+        result += "<< blah;";
+
+        return result;
     }
 
     render() {
@@ -94,6 +126,8 @@ export class NumberChunk extends Chunk {
             result = this.renderCppSStream();
         }
         else result = this.renderLogical();
+
+        console.log(result);
 
         return <p>{result}</p>
     }
