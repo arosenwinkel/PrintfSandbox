@@ -15,6 +15,7 @@ export const NumberTypes = Object.freeze({
 export const ReprTypes = Object.freeze({
     Logical: 0,
     CPrintf: 1,
+    CppSStream: 2
 });
 
 export const DisplayTypes = Object.freeze({
@@ -39,21 +40,6 @@ export const InternalSizes = Object.freeze({
     max_t: new InternalSize("j"),
     size_t: new InternalSize("z"),
     ptrdiff_t: new InternalSize("t")
-});
-
-export const DefaultSpecifiers = Object.freeze({
-    displayType: DisplayTypes.Decimal, // DisplayTypes enum
-    unsigned: false,
-    leftJustify: false,
-    showSign: false, 
-    showHexX: false,
-    forceDecimalPoint: false,
-    limitSize: false, // use shorter representation where possible (float vs. scientific notation)
-    zeroPad: false, // pad with zeroes instead of spaces
-    width: null, // horizontal width
-    capitalize: false, // use capital hex digits, capital E for sci. notation
-    precision: null,
-    size: InternalSizes.int,
 });
 
 export class NumberChunk extends Chunk {
@@ -91,14 +77,24 @@ export class NumberChunk extends Chunk {
     renderLogical() {
         if (!this.isValid()) return null;
 
-        return 
+        return "LOGICAL";
     }
 
-    renderCppStream() {
-        return <p>Rendered CPP-style Stream</p>
+    renderCppSStream() {        
+        return "blah";
     }
 
     render() {
-        return <p>{this.renderCPrintf()}</p>
+        let result = "";
+
+        if (this.props.type == ReprTypes.CPrintf) {
+            result = this.renderCPrintf();
+        }
+        else if (this.props.type == ReprTypes.CppSStream) {
+            result = this.renderCppSStream();
+        }
+        else result = this.renderLogical();
+
+        return <p>{result}</p>
     }
 }
