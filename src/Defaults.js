@@ -15,7 +15,7 @@ export const DefaultNumberSpecifiers = Object.freeze({
     size: InternalSizes.int,
 });
 
-export function getNumberChunkProps(number, type, specs) {
+export function getNumberChunkProps(name, number, type, specs) {
     if (number === null) number = NumberTypes.Integer;
     if (type === null) type = ReprTypes.CPrintf;
 
@@ -24,14 +24,15 @@ export function getNumberChunkProps(number, type, specs) {
     Object.assign(specifiers, specs);
 
     return {
+        name: name,
         number: number,
         type: type,
         specifiers: specifiers
     };
 }
 
-export function makeNumberChunk(number, type, specs) {
-    const props = getNumberChunkProps(number, type, specs);
+export function makeNumberChunk(name, number, type, specs) {
+    const props = getNumberChunkProps(name, number, type, specs);
 
     return new NumberChunk(props);
 }

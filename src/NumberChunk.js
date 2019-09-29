@@ -66,7 +66,6 @@ export class NumberChunk extends Chunk {
         if (!this.isValid()) return null;
 
         const number_type = this.props.number;
-        const display_type = this.props.specifiers.displayType;
         const internal_size = this.props.specifiers.size;
 
         let symbol = internal_size.c_printf + number_type.c_printf;
@@ -76,15 +75,17 @@ export class NumberChunk extends Chunk {
 
         let padClause = "";
 
-        if (width !== null) {
-            padClause = width.toString(10);
+        if (width) {
+            if (padChar === "0") {
+                padClause = "0";
+            }
+
+            padClause += width.toString(10);
         }
 
-        if (padChar == "0" && width !== null) {
-            padClause = "0" + padClause;
-        }
+        const result = `%${padClause}${symbol}`;
 
-        return `%${padClause}${symbol}`;
+        return result;
     }
 
     renderLogical() {
@@ -111,24 +112,22 @@ export class NumberChunk extends Chunk {
             result += "<< " + part + " ";
         });
 
-        result += "<< blah;";
+        result += `<< ${this.props.name}`;
 
         return result;
     }
 
-    render() {
-        let result = "";
-
+    toStr() {
         if (this.props.type == ReprTypes.CPrintf) {
-            result = this.renderCPrintf();
+            return this.renderCPrintf();
         }
         else if (this.props.type == ReprTypes.CppSStream) {
-            result = this.renderCppSStream();
+            return this.renderCppSStream();
         }
-        else result = this.renderLogical();
+        else return this.renderLogical();
+    }
 
-        console.log(result);
-
-        return <p>{result}</p>
+    render() {
+        return <p>{this.toStr()}</p>;
     }
 }
