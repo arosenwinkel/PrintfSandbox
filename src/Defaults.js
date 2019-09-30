@@ -1,19 +1,4 @@
-import {DisplayTypes, InternalSizes, NumberTypes, ReprTypes, NumberChunk} from './NumberChunk';
-
-export const DefaultNumberSpecifiers = Object.freeze({
-    displayType: DisplayTypes.Decimal, // DisplayTypes enum
-    unsigned: false,
-    leftJustify: false,
-    showSign: false, 
-    showHexX: false,
-    forceDecimalPoint: false,
-    limitSize: false, // use shorter representation where possible (float vs. scientific notation)
-    padChar: ' ', // pad with zeroes instead of spaces
-    width: null, // horizontal width
-    capitalize: false, // use capital hex digits, capital E for sci. notation
-    precision: null,
-    size: InternalSizes.int,
-});
+import {Spec, DisplayTypes, InternalSizes, NumberTypes, ReprTypes, NumberChunk, DefaultNumberSpecifiers} from './NumberChunk';
 
 export function getNumberChunkProps(name, number, type, specs) {
     if (number === null) number = NumberTypes.Integer;
@@ -21,7 +6,13 @@ export function getNumberChunkProps(name, number, type, specs) {
 
     let specifiers = {};
     Object.assign(specifiers, DefaultNumberSpecifiers);
-    Object.assign(specifiers, specs);
+
+    if (specs) {
+        Object.keys(specs).map((key) => {
+            if (!specifiers.hasOwnProperty(key)) return;
+            specifiers[key] = new Spec(specifiers[key].default, specs[key]);
+        });
+    }
 
     return {
         name: name,

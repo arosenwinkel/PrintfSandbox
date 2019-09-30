@@ -37,3 +37,17 @@ it('renders multiple CppSStreamStatements', () => {
     const expected_result = `stream << arg1; stream << arg2;`;
     expect(statement.toStr()).toEqual(expected_result);
 });
+
+it('simplifies consecutive uses of stream modifiers for CppSStreamStatements', () => {
+    const chunks = [
+        makeNumberChunk("arg1", null, ReprTypes.CppSStream, null),
+        makeNumberChunk("arg2", null, ReprTypes.CppSStream, {width: 10}),
+        makeNumberChunk("arg3", null, ReprTypes.CppSStream, {width: 10}),
+        makeNumberChunk("arg4", null, ReprTypes.CppSStream, {width: 11}),
+        makeNumberChunk("arg5", null, ReprTypes.CppSStream, null)
+    ];
+
+    const statement = new CppSStreamStatement({"chunks": chunks});
+    const expected_result = `stream << arg1; stream << std::setw(10) << arg2; stream << arg3; stream << std::setw(11) << arg4; stream << std::setw(0) << arg5;`;
+    expect(statement.toStr()).toEqual(expected_result);
+});

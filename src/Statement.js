@@ -1,4 +1,5 @@
 import React from 'react';
+import { DefaultNumberSpecifiers } from './NumberChunk';
 
 export class Statement extends React.Component {
     constructor(props) {
@@ -58,9 +59,14 @@ export class CppSStreamStatement extends Statement {
 
     toArray() {
         let lines = [];
-        this.props.chunks.map((chunk) => {
+        let chunks = this.props.chunks;
+        let previous = DefaultNumberSpecifiers;
+
+        chunks.map((chunk) => {
+            chunk.setPrevious(previous);
             const line = "stream " + chunk.toStr() + ";";
             lines.push(line);
+            previous = chunk.props.specifiers;
         });
 
         return lines;
