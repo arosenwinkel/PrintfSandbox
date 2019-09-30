@@ -1,5 +1,5 @@
 import React from 'react';
-import { DefaultNumberSpecifiers } from './NumberChunk';
+import { DefaultNumberSpecifiers } from './Defaults';
 
 export class Statement extends React.Component {
     constructor(props) {

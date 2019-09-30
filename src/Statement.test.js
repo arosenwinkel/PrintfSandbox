@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {CPrintfStatement, CppSStreamStatement} from './Statement';
 import {getNumberChunkProps, makeNumberChunk} from './Defaults';
-import { ReprTypes } from './NumberChunk';
+import { ReprTypes } from './NumberModifiers';
 
 it('renders CPrintfStatement without crashing', () => {
     const div = document.createElement('div');

@@ -1,4 +1,4 @@
-import {specsDiff, Spec} from './NumberChunk';
+import {Spec, specsDiff} from './Spec';
 
 it('works', () => {
     // all defaulted

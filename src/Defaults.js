@@ -1,4 +1,21 @@
-import {Spec, DisplayTypes, InternalSizes, NumberTypes, ReprTypes, NumberChunk, DefaultNumberSpecifiers} from './NumberChunk';
+import {NumberTypes, ReprTypes, DisplayTypes, InternalSizes} from './NumberModifiers';
+import {NumberChunk} from './NumberChunk';
+import {Spec} from './Spec';
+
+export const DefaultNumberSpecifiers = Object.freeze({
+    displayType: new Spec(DisplayTypes.Decimal), // DisplayTypes enum
+    unsigned: new Spec(false),
+    leftJustify: new Spec(false),
+    showSign: new Spec(false), 
+    showHexX: new Spec(false),
+    forceDecimalPoint: new Spec(false),
+    limitSize: new Spec(false), // use shorter representation where possible (float vs. scientific notation)
+    padChar: new Spec(' '), // pad with zeroes instead of spaces
+    width: new Spec(0), // horizontal width
+    capitalize: new Spec(false), // use capital hex digits, capital E for sci. notation
+    precision: new Spec(null),
+    size: new Spec(InternalSizes.int),
+});
 
 export function getNumberChunkProps(name, number, type, specs) {
     if (number === null) number = NumberTypes.Integer;
