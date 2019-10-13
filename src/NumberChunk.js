@@ -47,6 +47,8 @@ export class NumberChunk extends Chunk {
     renderCPrintf() {
         if (!this.isValid()) return null;
 
+        // %[flags][width][.precision][length]specifier
+
         const number_type = this.props.number;
         const internal_size = this.props.specifiers.size.setting;
 

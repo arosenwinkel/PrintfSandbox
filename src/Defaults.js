@@ -4,16 +4,15 @@ import {Spec} from './Spec';
 
 export const DefaultNumberSpecifiers = Object.freeze({
     displayType: new Spec(DisplayTypes.Decimal), // DisplayTypes enum
-    unsigned: new Spec(false),
     leftJustify: new Spec(false),
-    showSign: new Spec(false), 
+    showSign: new Spec(false), // should support flag where we show space if no sign
     showHexX: new Spec(false),
     forceDecimalPoint: new Spec(false),
     limitSize: new Spec(false), // use shorter representation where possible (float vs. scientific notation)
     padChar: new Spec(' '), // pad with zeroes instead of spaces
     width: new Spec(0), // horizontal width
     capitalize: new Spec(false), // use capital hex digits, capital E for sci. notation
-    precision: new Spec(null),
+    precision: new Spec(null), // different defaults for ints vs. floats
     size: new Spec(InternalSizes.int),
 });
 

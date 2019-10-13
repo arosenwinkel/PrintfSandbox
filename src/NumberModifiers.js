@@ -6,7 +6,8 @@ export class Number {
 
 export const NumberTypes = Object.freeze({
     Integer: new Number("d"),
-    FloatingPoint: new Number("f")
+    FloatingPoint: new Number("f"),
+    Unsigned: new Number("u")
 });
 
 export const ReprTypes = Object.freeze({

@@ -30,6 +30,4 @@ it('works', () => {
     expect(diff2["c"].isSet).toEqual(true);
     expect(diff2["c"].setting).toEqual(2);
     expect(diff2["d"].setting).toEqual(5);
-
-
 });
